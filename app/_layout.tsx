@@ -2,7 +2,7 @@ import "../global.css";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import "react-native-reanimated";
-import { useEffect } from "react-native";
+import { useEffect } from "react";
 import { useFonts } from "expo-font";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -18,6 +18,16 @@ export default function RootLayout() {
     "Jakarta-Regular": require("../assets/fonts/PlusJakartaSans-Regular.ttf"),
     "Jakarta-SemiBold": require("../assets/fonts/PlusJakartaSans-SemiBold.ttf"),
   });
+
+  useEffect(() => {
+    if (loaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [loaded]);
+
+  if (!loaded) {
+    return null;
+  }
 
   return (
     <Stack>
